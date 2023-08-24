@@ -47,19 +47,19 @@ function BlockSearch(props) {
           description={props.list[8].weather[0].description}
           tepMax={props.list[8].main.temp_max}
           tepMin={props.list[8].main.temp_min}
-        ></BlockDetail>  
+        ></BlockDetail>
         <BlockDetail
           day={props.list[16].dt_txt}
           description={props.list[16].weather[0].description}
           tepMax={props.list[16].main.temp_max}
           tepMin={props.list[16].main.temp_min}
-        ></BlockDetail>  
+        ></BlockDetail>
         <BlockDetail
           day={props.list[24].dt_txt}
           description={props.list[24].weather[0].description}
           tepMax={props.list[24].main.temp_max}
           tepMin={props.list[24].main.temp_min}
-        ></BlockDetail>  
+        ></BlockDetail>
         <BlockDetail
           day={props.list[32].dt_txt}
           description={props.list[32].weather[0].description}
@@ -72,6 +72,26 @@ function BlockSearch(props) {
           tepMax={props.list[39].main.temp_max}
           tepMin={props.list[39].main.temp_min}
         ></BlockDetail>
+        </section>
+
+        <section className="detailAdi">
+          <h1>Today's Hightlights</h1>
+          <article>
+            <h4>Humidity</h4>
+            <h5> {props.list[0].main.humidity}</h5>
+          </article>
+          <article>
+            <h4>Wind Status</h4>
+            <h5> {props.list[0].wind.speed} speed</h5>
+          </article>
+          <article>
+            <h4>Visibility</h4>
+            <h5> {props.list[0].visibility}</h5>
+          </article>
+          <article>
+            <h4>Air Pressure</h4>
+            <h5> {props.list[0].main.pressure}</h5>
+          </article>
         </section>
       </div>
     </div>
