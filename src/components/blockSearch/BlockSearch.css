@@ -1,1 +1,14 @@
+.main{
+    display: flex;
+}
+.contSearch{
+    background-color: #1E223A;
+    Width: 459px;
+    Height: 1023px;
+}
+
+.days{
+    display: flex;
+}
+
 

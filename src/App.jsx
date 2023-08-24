@@ -26,7 +26,7 @@ function App() {
 
   //let latitud = 44.34//7.64
   //let longitud = 10.99//-72.28  // 7.643664, -72.277492
-  //let ke= "ee400300d5b74c2989134e8460534a42" // e920d87ad8a741b2e9c693a7d1e336a7 
+  //let ke= "ee400300d5b74c2989134e8460534a42" // e920d87ad8a741b2e9c693a7d1e336a7
 
   //Ejemplo Conexion con la app
 
@@ -58,15 +58,10 @@ function App() {
   }
 */
   return (
-    <>      
+    <>
      {weather ? <BlockSearch
         {...weather}
       ></BlockSearch>: ( <h1>no hay nada</h1> ) }
-
-      
-      
-
-
     </>
   )
 }
