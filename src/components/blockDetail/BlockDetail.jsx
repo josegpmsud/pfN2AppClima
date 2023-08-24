@@ -8,8 +8,8 @@ function BlockDetail(props) {
         <div className="contImg">
           <h5>{props.description}</h5>
         </div>
-        <h5> {props.tepMax}</h5>
-        <h5> {props.tepMin}</h5>
+        <h5> {props.tepMax}°C {props.tepMin}°C</h5>
+
       </div>
   )
 }
