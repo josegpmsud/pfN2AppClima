@@ -1,14 +1,58 @@
 .main{
     display: flex;
 }
+
+.btnSearch{
+    color: #100E1D;
+}
+
+.btns{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 2rem;
+}
+
+.btnGps{
+    color: #100E1D;
+    border-radius: 50px;
+}
+.contDetail{
+    background-color: #100E1D;
+}
 .contSearch{
     background-color: #1E223A;
     Width: 459px;
     Height: 1023px;
 }
+.contUni{
+    display: flex;
+    justify-content: end;
+    padding: 2rem;
+}
+
+.uni{
+    color: #100E1D;
+    border-radius: 50px;
+}
 
 .days{
     display: flex;
+    gap: 3rem;
+    padding: 5rem;
 }
 
+.det{
+  background-color: #1E223A;
+  Width: 328px;
+  Height:204px;
+}
+
+.detailAdi {
+  display: grid;
+  max-width: 1280px;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  padding: 3rem;
+
+}
 

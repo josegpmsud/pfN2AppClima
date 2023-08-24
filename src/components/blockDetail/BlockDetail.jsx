@@ -1,4 +1,5 @@
 import React from 'react'
+import './BlockDetail.css'
 
 function BlockDetail(props) {
   return (

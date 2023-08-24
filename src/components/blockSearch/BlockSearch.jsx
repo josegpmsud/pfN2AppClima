@@ -17,31 +17,32 @@ import imgThunderstorm from "../imgClime/Thunderstorm.png"
 import BlockDetail from "../blockDetail/BlockDetail";
 //fin imagenes de clima
 
-
-
 function BlockSearch(props) {
   console.log(props)
   return (
     <div className="main">
       <div className="contSearch">
-        
-        {console.log("imprimiendo desde return")}
-        {console.log(props)}
-        {/*console.log(props.list[0].props[0].clouds.dt_txt)*/}
-        <button className="btnSearch">Search for places</button>
-        <button className="btnGps">GPS</button>
+
+        <section className="btns">
+          <button className="btnSearch">Search for places</button>
+          <button className="btnGps">G</button>
+        </section>
         <div className="contImg">
           <img src={imgLightRain} alt=""></img>
         </div>
         <h5> {props.list[0].main.temp_max}</h5>
         <h5> {props.list[0].weather[0].description}</h5>
         <h5> Today {props.list[0].dt_txt}</h5>
-        <h4>{props.city.name}</h4>        
+        <h4>{props.city.name}</h4>
       </div>
 
       <div className="contDetail">
-        <section className="days">          
-        
+        <section className="contUni">
+          <button className="uni btnC">°C</button>
+          <button className="uni btnF">°F</button>
+        </section>
+
+        <section className="days">
         <BlockDetail
           day="Tomorrow"
           description={props.list[8].weather[0].description}
@@ -74,21 +75,21 @@ function BlockSearch(props) {
         ></BlockDetail>
         </section>
 
+        <h4>Today's Hightlights</h4>
         <section className="detailAdi">
-          <h1>Today's Hightlights</h1>
-          <article>
+          <article className="det">
             <h4>Humidity</h4>
             <h5> {props.list[0].main.humidity}</h5>
           </article>
-          <article>
+          <article className="det">
             <h4>Wind Status</h4>
-            <h5> {props.list[0].wind.speed} speed</h5>
+            <h5> {props.list[0].wind.speed}</h5>
           </article>
-          <article>
+          <article className="det">
             <h4>Visibility</h4>
             <h5> {props.list[0].visibility}</h5>
           </article>
-          <article>
+          <article className="det">
             <h4>Air Pressure</h4>
             <h5> {props.list[0].main.pressure}</h5>
           </article>
@@ -99,36 +100,3 @@ function BlockSearch(props) {
 }
 
 export default BlockSearch
-
-/*
-<h5> {weather.list[0].main.temp_max} temp_max</h5>
-<h5> {weather.list[0].weather[0].description} description</h5>
-<h5> Today {weather.list[0].weather[0].clouds.dt_txt} dt_txt</h5>
-<h4>Ciudad: {weather.city.name}</h4>
-<h4>Ciudad: {weather.city.name}</h4>
-*/
-
-/*
-<h4>Cordenadas: {weather.city.coord.lat} Latitud - {weather.city.coord.lon} longitud</h4>
-      <h4>Zona Horaria: {weather.city.timezone}</h4>
-
-      <h4>Wind</h4>
-      <h5> {weather.list[0].wind.deg} deg</h5>
-      <h5> {weather.list[0].wind.gust} gust</h5>
-      <h5> {weather.list[0].wind.speed} speed</h5>
-
-      <h4>Main</h4>
-      <h5> {weather.list[0].main.feels_like} feels_like</h5>
-      <h5> {weather.list[0].main.humidity} humidity</h5>
-      <h5> {weather.list[0].main.temp} temp</h5>
-      <h5> {weather.list[0].main.temp_kf} temp_kf</h5>
-
-      <h5> {weather.list[0].main.temp_min} temp_min</h5>
-
-      <h4>Weather</h4>
-
-      <h5> {weather.list[0].weather[0].main} main</h5>
-      <h5> {weather.list[0].weather[0].icon} icon</h5>
-
-
-*/
