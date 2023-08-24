@@ -1,9 +1,24 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
-
 import './App.css'
+import BlockSearch from './components/blockSearch/BlockSearch';
+import { weatherApi } from './api/weatherApi';
 
 function App() {
+
+  const [weather, setWeather]=useState('');
+
+  useEffect(() => {
+    fetchData()
+    async function fetchData() {
+      console.log("aqui")
+      const res = await weatherApi.getData("8.1141033", "-72.0204348")
+      console.log(res);
+      setWeather(res.data)
+    }
+  }, []);
+
+  console.log(weather);
+  /*
   const [weather, setWeather]=useState('');
   //const [lat, setLat] = useState(8.1141033);
   //const [log, setLog] = useState(-72.0204348);
@@ -19,10 +34,13 @@ function App() {
 
   //---https://api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid=e920d87ad8a741b2e9c693a7d1e336a7
 
+  //--api.openweathermap.org/data/2.5/forecast/daily?lat=44.34&lon=10.99&cnt=7&appid=ee400300d5b74c2989134e8460534a42
+  //---https://api.openweathermap.org/geo/1.0/direct?q=Santa%20Ana,Tachira%20State,VE&limit=5&appid=e920d87ad8a741b2e9c693a7d1e336a7
 
-  //---http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=e920d87ad8a741b2e9c693a7d1e336a7
+  //---
+  //---api.openweathermap.org/data/2.5/forecast/daily?lat=8.1141033&lon=-72.0204348&cnt=5&appid=e920d87ad8a741b2e9c693a7d1e336a7
 
-  useEffect(() => {
+  const obtenerWeather = () => {
 
   axios.get('https://api.openweathermap.org/data/2.5/forecast?lat=8.1141033&lon=-72.0204348&appid=e920d87ad8a741b2e9c693a7d1e336a7') //+key   'https://api.openweathermap.org/data/2.5/forecast?lat='+{latitud}+'&lon='+{longitud}+'&appid=e920d87ad8a741b2e9c693a7d1e336a7'
   .then(function (response) {
@@ -37,20 +55,35 @@ function App() {
   .finally(function () {
     // siempre sera executado
   });
-  }, []);
-
+  }
+*/
   return (
-    <>
-      <select>
-        <option value="VE">Lugar 1</option>
-        <option value="CO">Lugar 2</option>
-        <option value="">Lugar 3</option>
-        <option value="">Lugar 4</option>
-      </select>
-      <div>
-      <h1>App Weather</h1>
+    <>      
+     {weather ? <BlockSearch
+        {...weather}
+      ></BlockSearch>: ( <h1>no hay nada</h1> ) }
+
+      
+      
+
+
+    </>
+  )
+}
+
+export default App
+
+/*
+
+<h1>App Weather</h1>
+      <input placeholder='Ingrese Location' onChange={(e)=>setWeather(e.target.value)}></input>
+      <button onClick={obtenerWeather}>Buscar</button>
+
+
+
+<div>
       <h4>Ciudad: {weather.city.name}</h4>
-      <h4>Cordenadas: {weather.city.coord.lat} Latitud - {JSON.stringify(weather.city.coord.lon)} longitud</h4>
+      <h4>Cordenadas: {weather.city.coord.lat} Latitud || {weather.city.coord.lon} longitud</h4>
       <h4>Zona Horaria: {weather.city.timezone}</h4>
 
       <h4>Wind</h4>
@@ -73,15 +106,21 @@ function App() {
 
       </div>
 
-    </>
-  )
-}
 
-export default App
+<BlockSearch
+      weather={weather}
+      ></BlockSearch>
 
-/*
 
-      
+
+
+
+
+
+
+
+
+
 
 
 
