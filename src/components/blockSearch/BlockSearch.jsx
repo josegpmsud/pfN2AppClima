@@ -18,24 +18,14 @@ import BlockDetail from "../blockDetail/BlockDetail";
 //fin imagenes de clima
 
 function BlockSearch(props) {
-  const [city,setCity] = useState();
-  const [nombreCity, setNombreCity] = useState();
+  //const [nombreCity, setNombreCity] = useState();
+
+  const {setSearchCity, setCity, searchCity, citySelc} = props
 
   console.log("Imprimiendo seleccion de ciudad desde componente blockSearch")
   console.log(props.citySelc)
 
-  /*Lo que tenia antes*/
-  const obtenerCity = () => {axios.get('https://api.openweathermap.org/data/2.5/weather?appid=e920d87ad8a741b2e9c693a7d1e336a7&q='+nombreCity)//api.openweathermap.org/data/2.5/forecast?zip={zip code},{country code}&appid={API key}
-      .then(function (response) {
-        console.log(response.data);
-        setCity(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-      .finally(function () {
-      })
-};
+
   /*      */
   console.log(props)
   let image=(props.list[0].weather[0].description)
@@ -77,33 +67,37 @@ function BlockSearch(props) {
     imageI=imgSleet
   }
 
+  const handleSearchClick = () => {
+    setCity(searchCity)
+  }
+
   return (
     <div className="main">
       <div className="contSearch">
 
       <section>
-      <input className="input" placeholder='Ingrese Ciudad, Pais' onChange={(e)=>setNombreCity(e.target.value)}></input>
-      <button className="input" onClick={obtenerCity}>Buscar</button>
-      { city &&
+      <input className="input" placeholder='Ingrese Ciudad, Pais' onChange={ (e) => setSearchCity(e.target.value) }></input>
+      <button className="input" onClick={handleSearchClick}>Buscar</button>
+      { citySelc &&
       <>
-        <h1>{nombreCity}</h1>
+        <h1>{citySelc}</h1>
       </>
     }
-      
+
     </section>
 
         <section className="btns">
           <button className="btnSearch">Search for places</button>
           <button className="btnGps">G</button>
         </section>
-        <div className="contImg">
+        <div className="contImgC">
 
           <img src={imageI} alt=""></img>
         </div>
-        <h5> {props.list[0].main.temp_max}{props.uni}</h5>
+        <p><span className="tempToday">{parseInt(props.list[0].main.temp_max)}</span><span className="tempTodayU">{props.uni}</span></p>
         <h5> {props.list[0].weather[0].description}</h5>
         <h5> Today {props.list[0].dt_txt}</h5>
-        <h4>{props.city.name}</h4>
+        <h4>{props.city.name} || {props.city.country}</h4>
       </div>
 
       <div className="contDetail">
@@ -150,7 +144,7 @@ function BlockSearch(props) {
         ></BlockDetail>
         </section>
 
-        <h4>Today's Hightlights</h4>
+        <h3>Today's Hightlights</h3>
         <section className="detailAdi">
           <article className="det">
             <h4>Humidity</h4>

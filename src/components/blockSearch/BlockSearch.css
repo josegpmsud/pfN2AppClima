@@ -16,6 +16,14 @@
     color: #100E1D;
     border-radius: 50px;
 }
+.contImgC{
+    background-image: url("./Cloud-background.png");
+    /*opacity:50%;*/
+    background-position-x: center;
+    background-size: 120% 100%;
+    background-repeat: no-repeat;
+    
+}
 .contDetail{
     background-color: #100E1D;
 }
@@ -62,3 +70,17 @@ input{
 .input{
     color: #100E1D;
 }
+
+
+.tempToday{
+    font-weight: 500;
+    font-size: 144px;
+    color: #E7E7EB;
+
+}
+.tempTodayU{
+    font-weight: 100;
+    font-size: 48px;
+    color: #A09FB1;
+}
+

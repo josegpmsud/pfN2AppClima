@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import BlockSearch from './components/blockSearch/BlockSearch';
-import { weatherApi, weatherApiCity } from './api/weatherApi';
+import { weatherApi } from './api/weatherApi';
 
 function App() {
-  const [weatherCity, setWeatherCity]=useState('');
+  const [ searchCity, setSearchCity ] = useState('');// imperial
+  const [weatherCity, setWeatherCity]=useState('caracas');
+
   const [weather, setWeather]=useState('');
+  
   const [unit,setUnit]=useState("metric");// imperial
   const [unitL,setUnitL]=useState("°C");// imperial
-  const [lat,setLat]=useState("8.1141033");// imperial
-  const [lon,setLon]=useState("-72.0204348");// imperial
+
 
   function changeUni(){
     if(unitL=="°F"){
@@ -17,10 +19,10 @@ function App() {
       setUnitL("°C")
     }else{
       setUnit("imperial")
-      setUnitL("°F")}    
+      setUnitL("°F")}
   }
 
-  
+
 /*
   function update(){
     setLat("imperial")
@@ -35,16 +37,14 @@ function App() {
     async function fetchData() {
       console.log("aqui",unit)
       /**/
-      const resCity = await weatherApiCity.getData("Caracas", unit)//weatherCity
-      console.log(resCity);
-      setWeatherCity(resCity.data)
-      /**/
+      const {data} = await weatherApi.getData2 (weatherCity, unit )//weatherCity
+      const {lat, lon} = data.coord
 
       const res = await weatherApi.getData(lat, lon, unit)//"metric" //′N ′W // // "-66.8792", "10.488"//-80.60769943317263, -126.30011238605796 //"-49.30512014747726", "69.048243706593283"
       console.log(res);
       setWeather(res.data)
     }
-  }, [unit]);
+  }, [unit, weatherCity]);
 
   console.log("imprimiendo por ciudad")
   console.log(weatherCity);
@@ -85,8 +85,7 @@ function App() {
 */
   return (
     <div>
-      <input className="lat" placeholder="Latitud" type="text" onChange={(e)=>setLat(e.target.value)}/>
-      <input className="lon" placeholder="Longitud" type="text"onChange={(e)=>setLon(e.target.value)}/>      
+      
       
 
       <button className="uni btnC" onClick={changeUni}>{unitL}</button>
@@ -98,6 +97,10 @@ function App() {
 
         citySelc={weatherCity}
 
+        setSearchCity={ setSearchCity }
+        searchCity={searchCity}
+        setCity={ setWeatherCity }
+
       ></BlockSearch>: ( <h1>cargando...</h1> ) }
     </div>
   )
@@ -108,5 +111,7 @@ export default App
 
 /*
 
+<input className="lat" placeholder="Latitud" type="text" onChange={(e)=>setLat(e.target.value)}/>
+<input className="lon" placeholder="Longitud" type="text"onChange={(e)=>setLon(e.target.value)}/>
 <button className="input" onClick={update}>Actualizar</button>
 */

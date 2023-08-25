@@ -63,7 +63,7 @@ function BlockDetail(props) {
         <h5>{props.day}</h5>
         <div className="contImg">
         <img className="imageMin" src={imageI} alt=""></img>
-          <h5>{props.description}</h5>
+          
         </div>
         <h5> {props.tepMax}{props.uni} {props.tepMin}{props.uni}</h5>
       </div>
