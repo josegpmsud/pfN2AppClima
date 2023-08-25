@@ -11,6 +11,11 @@ export const weatherApi = {
     }
 }
 
+export const weatherApiCity = {
+    getData: function (q, units) {
+        return instance.get("weather",  { params: { q, cnt: 50, appid: "e920d87ad8a741b2e9c693a7d1e336a7", units }})
+    }
+}
 
 
 //forecast?q=san%20cristobal,venezuela&mode=xml&appid=e920d87ad8a741b2e9c693a7d1e336a7

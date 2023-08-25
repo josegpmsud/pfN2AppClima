@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import BlockSearch from './components/blockSearch/BlockSearch';
-import { weatherApi } from './api/weatherApi';
+import { weatherApi, weatherApiCity } from './api/weatherApi';
 
 function App() {
-
+  const [weatherCity, setWeatherCity]=useState('');
   const [weather, setWeather]=useState('');
   const [unit,setUnit]=useState("metric");// imperial
   const [unitL,setUnitL]=useState("°C");// imperial
@@ -17,7 +17,7 @@ function App() {
   function changeFahrenheit(){
     setUnit("imperial")
     setUnitL("°F")
-  } 
+  }
 
 
   useEffect(() => {
@@ -25,16 +25,20 @@ function App() {
     fetchData()
     async function fetchData() {
       console.log("aqui",unit)
-      const res = await weatherApi.getData("-49.30512014747726", "69.048243706593283", unit)//"metric" //′N ′W //"8.1141033", "-72.0204348" //-80.60769943317263, -126.30011238605796
+      /**/
+      const resCity = await weatherApiCity.getData("Caracas,VE", unit)
+      console.log(resCity);
+      setWeatherCity(resCity.data)
+      /**/
+
+      const res = await weatherApi.getData("8.1141033", "-72.0204348", unit)//"metric" //′N ′W // //-80.60769943317263, -126.30011238605796 //"-49.30512014747726", "69.048243706593283"
       console.log(res);
       setWeather(res.data)
     }
   }, [unit]);
 
   console.log(weather);
-  console.log("imprimiendo arreglo nuevo")
-  //console.log({"cod":"200","message":0,"cnt":6,"list":[{"dt":1692921600,"main":{"temp":24.33,"feels_like":24.75,"temp_min":21.66,"temp_max":24.33,"pressure":1011,"sea_level":1011,"grnd_level":917,"humidity":74,"temp_kf":2.67},"weather":[{"id":500,"main":"Rain","description":"light rain","icon":"10n"}],"clouds":{"all":84},"wind":{"speed":1.21,"deg":173,"gust":1.17},"visibility":10000,"pop":0.36,"rain":{"3h":0.67},"sys":{"pod":"n"},"dt_txt":"2023-08-25 00:00:00"},{"dt":1692932400,"main":{"temp":22.53,"feels_like":22.98,"temp_min":20.96,"temp_max":22.53,"pressure":1013,"sea_level":1013,"grnd_level":918,"humidity":82,"temp_kf":1.57},"weather":[{"id":802,"main":"Clouds","description":"scattered clouds","icon":"03n"}],"clouds":{"all":33},"wind":{"speed":1.27,"deg":180,"gust":1.24},"visibility":10000,"pop":0.1,"sys":{"pod":"n"},"dt_txt":"2023-08-25 03:00:00"},{"dt":1692943200,"main":{"temp":20.63,"feels_like":21.02,"temp_min":20.63,"temp_max":20.63,"pressure":1013,"sea_level":1013,"grnd_level":917,"humidity":87,"temp_kf":0},"weather":[{"id":801,"main":"Clouds","description":"few clouds","icon":"02n"}],"clouds":{"all":19},"wind":{"speed":0.95,"deg":181,"gust":1.18},"visibility":10000,"pop":0.12,"sys":{"pod":"n"},"dt_txt":"2023-08-25 06:00:00"},{"dt":1692954000,"main":{"temp":20.55,"feels_like":20.83,"temp_min":20.55,"temp_max":20.55,"pressure":1013,"sea_level":1013,"grnd_level":917,"humidity":83,"temp_kf":0},"weather":[{"id":500,"main":"Rain","description":"light rain","icon":"10n"}],"clouds":{"all":43},"wind":{"speed":1.12,"deg":181,"gust":1.21},"visibility":10000,"pop":0.3,"rain":{"3h":0.35},"sys":{"pod":"n"},"dt_txt":"2023-08-25 09:00:00"},{"dt":1692964800,"main":{"temp":24.28,"feels_like":24.67,"temp_min":24.28,"temp_max":24.28,"pressure":1014,"sea_level":1014,"grnd_level":918,"humidity":73,"temp_kf":0},"weather":[{"id":802,"main":"Clouds","description":"scattered clouds","icon":"03d"}],"clouds":{"all":39},"wind":{"speed":0.73,"deg":175,"gust":1.23},"visibility":10000,"pop":0.02,"sys":{"pod":"d"},"dt_txt":"2023-08-25 12:00:00"},{"dt":1692975600,"main":{"temp":29.05,"feels_like":29.85,"temp_min":29.05,"temp_max":29.05,"pressure":1013,"sea_level":1013,"grnd_level":919,"humidity":51,"temp_kf":0},"weather":[{"id":802,"main":"Clouds","description":"scattered clouds","icon":"03d"}],"clouds":{"all":46},"wind":{"speed":0.92,"deg":147,"gust":2.1},"visibility":10000,"pop":0.06,"sys":{"pod":"d"},"dt_txt":"2023-08-25 15:00:00"}],"city":{"id":3646738,"name":"Caracas","coord":{"lat":10.488,"lon":-66.8792},"country":"VE","population":3000000,"timezone":-14400,"sunrise":1692872301,"sunset":1692916918}})
-
+  
   /* UNA MEJOR OPCION DE URL
   https://api.openweathermap.org/data/2.5/forecast?q=caracas&cnt=6&appid=e920d87ad8a741b2e9c693a7d1e336a7
   https://api.openweathermap.org/data/2.5/forecast?q=caracas&cnt=6&appid=e920d87ad8a741b2e9c693a7d1e336a7&units=metric
@@ -74,6 +78,9 @@ function App() {
      {weather ? <BlockSearch
         {...weather}
         uni={unitL}
+
+        citySelc={weatherCity}
+
       ></BlockSearch>: ( <h1>cargando...</h1> ) }
     </div>
   )
