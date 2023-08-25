@@ -34,6 +34,9 @@
     color: #100E1D;
     border-radius: 50px;
 }
+input{
+    color: #100E1D;
+}
 
 .days{
     display: flex;

@@ -21,8 +21,11 @@ function BlockSearch(props) {
   const [city,setCity] = useState();
   const [nombreCity, setNombreCity] = useState();
 
+  console.log("Imprimiendo seleccion de ciudad desde componente blockSearch")
+  console.log(props.citySelc)
 
-  const obtenerCity = () => {axios.get('https://api.openweathermap.org/data/2.5/forecast?appid=e920d87ad8a741b2e9c693a7d1e336a7&q='+nombreCity)//api.openweathermap.org/data/2.5/forecast?zip={zip code},{country code}&appid={API key}
+  /*Lo que tenia antes*/
+  const obtenerCity = () => {axios.get('https://api.openweathermap.org/data/2.5/weather?appid=e920d87ad8a741b2e9c693a7d1e336a7&q='+nombreCity)//api.openweathermap.org/data/2.5/forecast?zip={zip code},{country code}&appid={API key}
       .then(function (response) {
         console.log(response.data);
         setCity(response.data);
@@ -33,7 +36,7 @@ function BlockSearch(props) {
       .finally(function () {
       })
 };
-
+  /*      */
   console.log(props)
   let image=(props.list[0].weather[0].description)
   let imageI;
@@ -73,12 +76,11 @@ function BlockSearch(props) {
   if(image=="light snow"){
     imageI=imgSleet
   }
-  
 
   return (
     <div className="main">
       <div className="contSearch">
-      
+
       <section>
       <input className="input" placeholder='Ingrese Ciudad, Pais' onChange={(e)=>setNombreCity(e.target.value)}></input>
       <button className="input" onClick={obtenerCity}>Buscar</button>
@@ -87,14 +89,15 @@ function BlockSearch(props) {
         <h1>{nombreCity}</h1>
       </>
     }
+      
     </section>
 
         <section className="btns">
           <button className="btnSearch">Search for places</button>
           <button className="btnGps">G</button>
         </section>
-        <div className="contImg">      
-          
+        <div className="contImg">
+
           <img src={imageI} alt=""></img>
         </div>
         <h5> {props.list[0].main.temp_max}{props.uni}</h5>
@@ -173,72 +176,3 @@ function BlockSearch(props) {
 
 export default BlockSearch
 
-/*
-const [data, setData] = useState([]);
-
-
-// Función para traer los datos de "stays.json".
-  const getData = async () => {
-    // Esta sentencia try-catch sirve para manejar los errores que se podrían generar al importar los datos de "stays.json".
-    try {
-      const res = await fetch("citylist.json");
-      const resJson = await res.json();
-      // Aquí guardamos los datos de "citylist.json" en la variable data.
-      setData(resJson);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // Este Hook te va a ejecutar la función getData cada vez que la página se renderice.
-  useEffect(() => {
-     getData();
-  }, []);
-
-  console.log(data)
-
-<select name="select">
-  
-  
-
-      {data.map((el, i) => {
-       
-        return(
-        <div >          
-          <option value="value1">{el.}</option>
-                 
-        </div>
-        
-          ) 
-        })      
-      }</select>
-
-
-
-
-
-*/
-
-
-
-
-
-/*
-
-climas:
--Rain
-light rain
-moderate rain
-
--Clouds
-broken clouds
-few clouds
-overcast clouds
-scattered clouds
-
--Clear
-clear sky
-
-
-
-*/
