@@ -6,16 +6,30 @@ import { weatherApi } from './api/weatherApi';
 function App() {
 
   const [weather, setWeather]=useState('');
+  const [unit,setUnit]=useState("metric");// imperial
+  const [unitL,setUnitL]=useState("°C");// imperial
+
+  function changeCelcius(){
+    setUnit("metric")
+    setUnitL("°C")
+  }
+
+  function changeFahrenheit(){
+    setUnit("imperial")
+    setUnitL("°F")
+  } 
+
 
   useEffect(() => {
+
     fetchData()
     async function fetchData() {
-      console.log("aqui")
-      const res = await weatherApi.getData("8.1141033", "-72.0204348")
+      console.log("aqui",unit)
+      const res = await weatherApi.getData("-49.30512014747726", "69.048243706593283", unit)//"metric" //′N ′W //"8.1141033", "-72.0204348" //-80.60769943317263, -126.30011238605796
       console.log(res);
       setWeather(res.data)
     }
-  }, []);
+  }, [unit]);
 
   console.log(weather);
   console.log("imprimiendo arreglo nuevo")
@@ -54,11 +68,14 @@ function App() {
   
 */
   return (
-    <>
+    <div>
+      <button className="uni btnC" onClick={changeCelcius}>°C</button>
+      <button className="uni btnF" onClick={changeFahrenheit}>°F</button>
      {weather ? <BlockSearch
         {...weather}
-      ></BlockSearch>: ( <h1>no hay nada</h1> ) }
-    </>
+        uni={unitL}
+      ></BlockSearch>: ( <h1>cargando...</h1> ) }
+    </div>
   )
 }
 
