@@ -36,7 +36,7 @@ function App() {
     fetchData()
     async function fetchData() {
       console.log("aqui",unit)
-      /**/
+      
       const {data} = await weatherApi.getData2 (weatherCity, unit )//weatherCity
       const {lat, lon} = data.coord
 
@@ -87,7 +87,6 @@ function App() {
     <div>
       
       
-
       <button className="uni btnC" onClick={changeUni}>{unitL}</button>
       
 
@@ -100,6 +99,7 @@ function App() {
         setSearchCity={ setSearchCity }
         searchCity={searchCity}
         setCity={ setWeatherCity }
+        
 
       ></BlockSearch>: ( <h1>cargando...</h1> ) }
     </div>
@@ -110,6 +110,9 @@ export default App
 
 
 /*
+<input className="lat" placeholder="Latitud" type="text" onChange={(e)=>setLat(e.target.value)}/>
+      <input className="lon" placeholder="Longitud" type="text"onChange={(e)=>setLon(e.target.value)}/>
+
 
 <input className="lat" placeholder="Latitud" type="text" onChange={(e)=>setLat(e.target.value)}/>
 <input className="lon" placeholder="Longitud" type="text"onChange={(e)=>setLon(e.target.value)}/>

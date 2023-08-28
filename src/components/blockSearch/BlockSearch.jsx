@@ -33,7 +33,7 @@ function BlockSearch(props) {
     
   }
 
-  const {setSearchCity, setCity, searchCity, citySelc} = props
+  const {setSearchCity, setCity, searchCity, citySelc, metoUnit} = props
 
   console.log("Imprimiendo seleccion de ciudad desde componente blockSearch")
   console.log(props.citySelc)
@@ -109,7 +109,7 @@ function BlockSearch(props) {
       break;
       case 10:
         mes=" Nov";
-      break;    
+      break;
       case 11:
         mes=" Dec";
       break;
@@ -167,11 +167,9 @@ function BlockSearch(props) {
     SetModalToday(true)}
     
   }
-  /*
-  const selecHisto = () => {
-    handleSearchClick()
-  }
-  */
+  
+  
+  
 
   return (
     <div className="main">
@@ -180,11 +178,11 @@ function BlockSearch(props) {
     {modalSearch && <>
       <section>
       <input className="input" placeholder='Search location' onChange={ (e) => setSearchCity(e.target.value) }></input>
-      <button className="input" onClick={handleSearchClick}>Search</button>
+      <button className="input" onClick={handleSearchClick} >Search</button>
       
       { citySelc &&
         <>
-          <button className="histo" onClick={selecHisto}>{citySelc}</button>
+          <button className="histo" /*onClick={setSearchCity(citySelc)}*/ value={citySelc}>{citySelc}</button>
         </>
       }
       
@@ -205,6 +203,7 @@ function BlockSearch(props) {
           <span class="material-symbols-outlined iconLoc">location_on</span><span className="iconLoc">{props.city.name} {props.city.country}</span></p>
       </> }
       </div>
+      
       
       <div className="contDetail">
         <section className="contUni">
@@ -249,28 +248,40 @@ function BlockSearch(props) {
           uni={props.uni}
         ></BlockDetail>
         </section>
-
-        <h3 className="titleSecAdi">Today's Hightlights</h3>
+        <section className="contenedorSecundary">
+        <p className="titleSecAdi">Today's Hightlights</p>
         <section className="detailAdi">
           <article className="det">
-            <h4><span className="titleSec">Wind Status</span> </h4>
-            <h5> <span className="value">{props.list[0].wind.speed}</span><span className="unit">mph</span></h5>
+            <p><span className="titleSec">Wind Status</span> </p>
+            <p className="cValue"> <span className="value">{props.list[0].wind.speed}</span><span className="unit">mph</span></p>
+            <p className="barPor">
+              <p className="contWind"><span class="material-symbols-outlined wind">near_me</span><span>WSW</span></p>
+            </p>
           </article>
           <article className="det">
-            <h4><span className="titleSec">Humidity</span></h4>
-            <h5> <span className="value">{props.list[0].main.humidity}</span><span className="unit">%</span></h5>
+            <p><span className="titleSec">Humidity</span></p>
+            <p className="cValue"> <span className="value">{props.list[0].main.humidity}</span><span className="unit">%</span></p>
+            <div className="contBar">
+              <div className="ind"><span className="ba">0</span><span className="ba">50</span><span className="ba">100</span></div>
+              <progress className="porcHum" max="100" value={props.list[0].main.humidity}>{props.list[0].main.humidity}</progress>
+              <div className="indP"><span className="ba">%</span></div>
+            </div>
+
           </article>
           <article className="det">
-            <h4><span className="titleSec">Visibility</span></h4>
-            <h5> <span className="value">{(props.list[0].visibility)/1000}</span><span className="unit">miles</span></h5>
+            <p><span className="titleSec">Visibility</span></p>
+            <p> <span className="value">{(props.list[0].visibility)/1000}</span><span className="unit">miles</span></p>
           </article>
           <article className="det">
-            <h4><span className="titleSec">Air Pressure</span></h4>
-            <h5> <span className="value">{props.list[0].main.pressure}</span><span className="unit">mb</span></h5>
+            <p><span className="titleSec">Air Pressure</span></p>
+            <p> <span className="value">{props.list[0].main.pressure}</span><span className="unit">mb</span></p>
           </article>
         </section>
+        </section>
       </div>
+
     </div>
+
   )
 }
 
