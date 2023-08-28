@@ -19,14 +19,107 @@ import BlockDetail from "../blockDetail/BlockDetail";
 
 function BlockSearch(props) {
   //const [nombreCity, setNombreCity] = useState();
+  const [modalSearch,SetModalSearch]=useState(false);
+  const [modalToday,SetModalToday]=useState(true);
+
+  function show(){
+    if(modalToday){
+      SetModalSearch(true)
+      SetModalToday(false)
+    }else{
+      SetModalSearch(false)
+      SetModalToday(true)
+    }
+    
+  }
 
   const {setSearchCity, setCity, searchCity, citySelc} = props
 
   console.log("Imprimiendo seleccion de ciudad desde componente blockSearch")
   console.log(props.citySelc)
 
+  const fechaComoCadena = props.list[0].dt_txt; // día de la semana
+  let numeroDia = new Date(fechaComoCadena).getDay();
+  
+  switch (numeroDia) {
+    case 0:
+      numeroDia="Sun, ";
+      break;
+    case 1:
+      numeroDia="Tue, ";
+      break;
+    case 2:
+      numeroDia="Mon, ";
+      break;
+    case 3:
+      numeroDia="Wed, ";
+      break;
+    case 4:
+        numeroDia="Thu, ";
+      break;
+    case 5:
+        numeroDia="Fri, ";
+      break;
+    case 6:
+        numeroDia="Sat, ";
+      break;
+  
+    default:
+      numeroDia="";
+      break;
+  }
 
-  /*      */
+  let dia =""
+  if(props.day !="Tomorrow"){
+    dia = new Date(fechaComoCadena).getDate();
+  }
+  
+  
+  let mes = new Date(fechaComoCadena).getMonth();
+  switch (mes) {
+    case 0:
+      mes=" Jan";
+      break;
+    case 1:
+      mes=" Feb";
+      break;
+    case 2:
+      mes=" Mar";
+      break;
+    case 3:
+      mes=" Apr";
+      break;
+    case 4:
+      mes=" May";
+      break;
+    case 5:
+      mes=" Jun";
+      break;
+    case 6:
+      mes=" Jul";
+      break;
+    case 7:
+      mes=" Aug";
+      break;
+      case 8:
+        mes=" Sep";
+      break;
+      case 9:
+        mes=" Oct";
+      break;
+      case 10:
+        mes=" Nov";
+      break;    
+      case 11:
+        mes=" Dec";
+      break;
+      default:
+      mes="";
+      break;
+  }
+
+
+
   console.log(props)
   let image=(props.list[0].weather[0].description)
   let imageI;
@@ -69,37 +162,50 @@ function BlockSearch(props) {
 
   const handleSearchClick = () => {
     setCity(searchCity)
+    if(citySelc){
+    SetModalSearch(false)
+    SetModalToday(true)}
+    
   }
+  /*
+  const selecHisto = () => {
+    handleSearchClick()
+  }
+  */
 
   return (
     <div className="main">
+
       <div className="contSearch">
-
+    {modalSearch && <>
       <section>
-      <input className="input" placeholder='Ingrese Ciudad, Pais' onChange={ (e) => setSearchCity(e.target.value) }></input>
-      <button className="input" onClick={handleSearchClick}>Buscar</button>
+      <input className="input" placeholder='Search location' onChange={ (e) => setSearchCity(e.target.value) }></input>
+      <button className="input" onClick={handleSearchClick}>Search</button>
+      
       { citySelc &&
-      <>
-        <h1>{citySelc}</h1>
-      </>
-    }
-
-    </section>
-
+        <>
+          <button className="histo" onClick={selecHisto}>{citySelc}</button>
+        </>
+      }
+      
+    </section></>}
+    { modalToday && <>
         <section className="btns">
-          <button className="btnSearch">Search for places</button>
-          <button className="btnGps">G</button>
+          <button className="btnSearch" onClick={show}>Search for places</button>
+          <button className="btnGps"><span class="material-symbols-outlined gps">my_location</span></button>
         </section>
         <div className="contImgC">
 
           <img src={imageI} alt=""></img>
         </div>
         <p><span className="tempToday">{parseInt(props.list[0].main.temp_max)}</span><span className="tempTodayU">{props.uni}</span></p>
-        <h5> {props.list[0].weather[0].description}</h5>
-        <h5> Today {props.list[0].dt_txt}</h5>
-        <h4>{props.city.name} || {props.city.country}</h4>
+        <p className="descToday"> {props.list[0].weather[0].description}</p>
+        <p> <span className="day">Today</span> <span className="day"> · </span> <span className="day">{numeroDia}{dia}{mes}</span> </p>
+        <p className="locationActive">
+          <span class="material-symbols-outlined iconLoc">location_on</span><span className="iconLoc">{props.city.name} {props.city.country}</span></p>
+      </> }
       </div>
-
+      
       <div className="contDetail">
         <section className="contUni">
           <button className="uni btnC" >°C</button>
@@ -144,23 +250,23 @@ function BlockSearch(props) {
         ></BlockDetail>
         </section>
 
-        <h3>Today's Hightlights</h3>
+        <h3 className="titleSecAdi">Today's Hightlights</h3>
         <section className="detailAdi">
           <article className="det">
-            <h4>Humidity</h4>
-            <h5> {props.list[0].main.humidity}</h5>
+            <h4><span className="titleSec">Wind Status</span> </h4>
+            <h5> <span className="value">{props.list[0].wind.speed}</span><span className="unit">mph</span></h5>
           </article>
           <article className="det">
-            <h4>Wind Status</h4>
-            <h5> {props.list[0].wind.speed}</h5>
+            <h4><span className="titleSec">Humidity</span></h4>
+            <h5> <span className="value">{props.list[0].main.humidity}</span><span className="unit">%</span></h5>
           </article>
           <article className="det">
-            <h4>Visibility</h4>
-            <h5> {props.list[0].visibility}</h5>
+            <h4><span className="titleSec">Visibility</span></h4>
+            <h5> <span className="value">{(props.list[0].visibility)/1000}</span><span className="unit">miles</span></h5>
           </article>
           <article className="det">
-            <h4>Air Pressure</h4>
-            <h5> {props.list[0].main.pressure}</h5>
+            <h4><span className="titleSec">Air Pressure</span></h4>
+            <h5> <span className="value">{props.list[0].main.pressure}</span><span className="unit">mb</span></h5>
           </article>
         </section>
       </div>

@@ -16,6 +16,88 @@ import imgThunderstorm from "../imgClime/Thunderstorm.png"
 
 function BlockDetail(props) {
 
+  const fechaComoCadena = props.day; // día de la semana
+  let numeroDia = new Date(fechaComoCadena).getDay();
+  
+  switch (numeroDia) {
+    case 0:
+      numeroDia="Sun, ";
+      break;
+    case 1:
+      numeroDia="Tue, ";
+      break;
+    case 2:
+      numeroDia="Mon, ";
+      break;
+    case 3:
+      numeroDia="Wed, ";
+      break;
+    case 4:
+        numeroDia="Thu, ";
+      break;
+    case 5:
+        numeroDia="Fri, ";
+      break;
+    case 6:
+        numeroDia="Sat, ";
+      break;
+  
+    default:
+      numeroDia="";
+      break;
+  }
+
+  let dia =""
+  if(props.day !="Tomorrow"){
+    dia = new Date(fechaComoCadena).getDate();
+  }
+  
+  
+  let mes = new Date(fechaComoCadena).getMonth();
+  switch (mes) {
+    case 0:
+      mes=" Jan";
+      break;
+    case 1:
+      mes=" Feb";
+      break;
+    case 2:
+      mes=" Mar";
+      break;
+    case 3:
+      mes=" Apr";
+      break;
+    case 4:
+      mes=" May";
+      break;
+    case 5:
+      mes=" Jun";
+      break;
+    case 6:
+      mes=" Jul";
+      break;
+    case 7:
+      mes=" Aug";
+      break;
+      case 8:
+        mes=" Sep";
+      break;
+      case 9:
+        mes=" Oct";
+      break;
+      case 10:
+        mes=" Nov";
+      break;    
+      case 11:
+        mes=" Dec";
+      break;
+  
+    default:
+      mes="";
+      break;
+  }
+
+  
   
     let image=props.description
     let imageI;
@@ -58,15 +140,17 @@ function BlockDetail(props) {
     
    
 
-  return (
+  return (  
     <div className="cont">
-        <h5>{props.day}</h5>
+        <p className='date'>{numeroDia}{props.day==="Tomorrow"? "Tomorrow" : dia}{mes}</p>
         <div className="contImg">
-        <img className="imageMin" src={imageI} alt=""></img>
+            <p>
+            <img className="imageMin" src={imageI} alt="imageI"></img>
+            </p>
           
         </div>
-        <h5> {props.tepMax}{props.uni} {props.tepMin}{props.uni}</h5>
-      </div>
+        <div className='temperatures'><span className='tem temMax'>{parseInt(props.tepMax)}{props.uni}</span> <span className='tem temMin'>{parseInt(props.tepMin)}{props.uni}</span></div>
+        </div>
   )
 }
 

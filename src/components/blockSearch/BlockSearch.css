@@ -71,16 +71,77 @@ input{
     color: #100E1D;
 }
 
+.day{
+    font-weight: 500;
+    font-size: 18px;
+    color: #88869D;
+}
+
+
+.descToday{
+    font-weight: 600;
+    font-size: 36px;
+    text-align: center;
+    color: #A09FB1;
+}
+
 
 .tempToday{
     font-weight: 500;
     font-size: 144px;
     color: #E7E7EB;
+    
 
 }
 .tempTodayU{
     font-weight: 100;
     font-size: 48px;
     color: #A09FB1;
+    text-align: justify;
 }
 
+.titleSecAdi{
+    font-weight: 700;
+    font-size: 24px;
+    color: #E7E7EB;    
+}
+
+.titleSec{
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+    color: #E7E7EB;
+}
+
+.value{
+    font-weight: 700;
+    font-size: 64px;
+    color: #E7E7EB;
+}
+
+.unit{
+
+    font-weight: 500;
+    font-size: 36px;
+    color: #E7E7EB;
+
+}
+
+.locationActive{
+   display: flex;
+   justify-content: center;
+   font-weight: 600;
+   font-size: 18px;
+}
+
+.iconLoc{
+    color: #88869D;
+}
+
+.histo{
+    color: #100E1D;
+}
+
+.gps{
+    color:#100E1D;
+}
