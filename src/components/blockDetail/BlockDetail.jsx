@@ -137,6 +137,10 @@ function BlockDetail(props) {
     if(image=="light snow"){
       imageI=imgSleet
     }
+    if(image=="heavy intensity rain"){
+      imageI=imgHeavyRain
+    }
+
     
    
 
@@ -145,7 +149,7 @@ function BlockDetail(props) {
         <p className='date'>{numeroDia}{props.day==="Tomorrow"? "Tomorrow" : dia}{mes}</p>
         <div className="contImg">
             <p>
-            <img className="imageMin" src={imageI} alt="imageI"></img>
+            <img className="imageMin" src={imageI} alt={props.description}></img>
             </p>
           
         </div>

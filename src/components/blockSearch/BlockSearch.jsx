@@ -1,6 +1,4 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { weatherApi } from "../../api/weatherApi";
 import './BlockSearch.css'
 
 //imagenes de climas
@@ -118,8 +116,6 @@ function BlockSearch(props) {
       break;
   }
 
-
-
   console.log(props)
   let image=(props.list[0].weather[0].description)
   let imageI;
@@ -159,43 +155,48 @@ function BlockSearch(props) {
   if(image=="light snow"){
     imageI=imgSleet
   }
+  if(image=="heavy intensity rain"){
+    imageI=imgHeavyRain
+  }
 
   const handleSearchClick = () => {
     setCity(searchCity)
     if(citySelc){
     SetModalSearch(false)
-    SetModalToday(true)}
-    
+    SetModalToday(true)
+  }
   }
   
-  
-  
-
   return (
     <div className="main">
 
-      <div className="contSearch">
+    <div className="contSearch">
     {modalSearch && <>
-      <section>
-      <input className="input" placeholder='Search location' onChange={ (e) => setSearchCity(e.target.value) }></input>
-      <button className="input" onClick={handleSearchClick} >Search</button>
-      
-      { citySelc &&
-        <>
-          <button className="histo" /*onClick={setSearchCity(citySelc)}*/ value={citySelc}>{citySelc}</button>
-        </>
-      }
-      
+      <section className="conBtn">
+        <div className="close" onClick={show}><span className="material-symbols-outlined">close</span></div>
+        <div className="search">        
+        <span className="material-symbols-outlined lup">search</span>
+          <input className="inputSearchI" autoFocus placeholder='Search location' onChange={ (e) => setSearchCity(e.target.value) }></input>
+          <button className="btnSearchI" onClick={handleSearchClick} >Search</button>
+        </div>
+
+
+
+
+
+
+
     </section></>}
     { modalToday && <>
         <section className="btns">
           <button className="btnSearch" onClick={show}>Search for places</button>
-          <button className="btnGps"><span class="material-symbols-outlined gps">my_location</span></button>
+          <button className="btnGps"><span className="material-symbols-outlined gps">my_location</span></button>
         </section>
-        <div className="contImgC">
 
-          <img src={imageI} alt=""></img>
+        <div className="contImgC">
+          <img src={imageI} alt={props.list[0].weather[0].description}></img>
         </div>
+      
         <p><span className="tempToday">{parseInt(props.list[0].main.temp_max)}</span><span className="tempTodayU">{props.uni}</span></p>
         <p className="descToday"> {props.list[0].weather[0].description}</p>
         <p> <span className="day">Today</span> <span className="day"> · </span> <span className="day">{numeroDia}{dia}{mes}</span> </p>
@@ -205,7 +206,7 @@ function BlockSearch(props) {
       </div>
       
       
-      <div className="contDetail">
+        <div className="contDetail">
         <section className="contUni">
           <button className="uni btnC" >°C</button>
           <button className="uni btnF" >°F</button>
@@ -278,8 +279,9 @@ function BlockSearch(props) {
           </article>
         </section>
         </section>
-      </div>
+      <footer><p className="footer">created by Jose Gregorio Perez Montilla - Soluciones Integrales Perez</p></footer>
 
+      </div>
     </div>
 
   )
