@@ -10,7 +10,7 @@
     width: 161px; 
     height: 40px; 
     /*margin-top: 42px; */
-    margin-left: 46px;
+    
     font-weight: 500; 
     font-size: 12px;
     border-radius: 0px;
@@ -78,6 +78,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    gap:5px
     
     
 }
@@ -108,10 +109,11 @@
 }
 .contDetail{
     background-color: #100E1D;
-    display: flex;    
-    flex-direction: column;/*
-    justify-content: center;*/
-    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
 }
 .contSearch{
     background-color: #1E223A;
@@ -119,7 +121,12 @@
     Height: 1023px;
     display: flex;
     flex-direction: column;
-    
+
+}
+.todayMain{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .lup{
@@ -135,13 +142,13 @@
 .contenedorSecundary{
     display: flex;
     flex-direction: column;
-    
-    
+
 }
 .contUni{
     display: flex;
     justify-content: end;
-    padding: 2rem;
+    /*padding: 2rem;*/
+    gap:10px;
 }
 
 .uni{
@@ -154,6 +161,7 @@ input{
 
 .days{
     display: flex;
+    justify-content: space-around;
     gap: 3rem;
     padding: 5rem;
 }
@@ -168,9 +176,8 @@ input{
   display: grid;
   grid-template-columns: .1fr 0.5fr;
   gap: 2rem;
-  padding-left: 6rem;
+  /*padding-left: 6rem;*/
 }
-
 
 .input{
     color: #100E1D;
@@ -193,9 +200,8 @@ input{
     font-weight: 500;
     font-size: 144px;
     color: #E7E7EB;
-    
-
 }
+
 .tempTodayU{
     font-weight: 100;
     font-size: 48px;
@@ -208,7 +214,7 @@ input{
     font-size: 24px;
     color: #E7E7EB;
     text-align: start;
-    margin-left: 8rem;    
+    /*margin-left: 8rem;*/    
 }
 
 .titleSec{
@@ -231,6 +237,7 @@ input{
     color: #E7E7EB;
 
 }
+
 
 .locationActive{
    display: flex;
@@ -324,4 +331,8 @@ progress {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.btnC{
+    color: #E7E7EB;
 }

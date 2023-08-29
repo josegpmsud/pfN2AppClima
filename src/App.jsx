@@ -44,11 +44,9 @@ function App() {
   
   
   return (
-    <div>
+    <div>     
       
-      
-      <button className="uni btnC" onClick={changeUni}>{unitL}</button>
-      
+            
 
      {weather ? <BlockSearch
         {...weather}
@@ -59,7 +57,7 @@ function App() {
         setSearchCity={ setSearchCity }
         searchCity={searchCity}
         setCity={ setWeatherCity }
-        
+        changeUni={ changeUni }
 
       ></BlockSearch>: ( <h1>cargando...</h1> ) }
     </div>
@@ -70,6 +68,9 @@ export default App
 
 
 /*
+<button className="uni btnC" onClick={changeUni}>{unitL}</button>
+
+
 <input className="lat" placeholder="Latitud" type="text" onChange={(e)=>setLat(e.target.value)}/>
       <input className="lon" placeholder="Longitud" type="text"onChange={(e)=>setLon(e.target.value)}/>
 

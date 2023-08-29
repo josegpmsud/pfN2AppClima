@@ -31,7 +31,7 @@ function BlockSearch(props) {
     
   }
 
-  const {setSearchCity, setCity, searchCity, citySelc, metoUnit} = props
+  const {setSearchCity, setCity, searchCity, citySelc, changeUni} = props
 
   console.log("Imprimiendo seleccion de ciudad desde componente blockSearch")
   console.log(props.citySelc)
@@ -166,28 +166,25 @@ function BlockSearch(props) {
     SetModalToday(true)
   }
   }
-  
+
   return (
     <div className="main">
 
-    <div className="contSearch">
-    {modalSearch && <>
+      <div className="contSearch">
+      {modalSearch && <>
       <section className="conBtn">
-        <div className="close" onClick={show}><span className="material-symbols-outlined">close</span></div>
-        <div className="search">        
-        <span className="material-symbols-outlined lup">search</span>
+        <div className="close" onClick={show}>
+          <span className="material-symbols-outlined">close</span>
+        </div>
+        <div className="search">
+          <span className="material-symbols-outlined lup">search</span>
           <input className="inputSearchI" autoFocus placeholder='Search location' onChange={ (e) => setSearchCity(e.target.value) }></input>
           <button className="btnSearchI" onClick={handleSearchClick} >Search</button>
         </div>
-
-
-
-
-
-
-
-    </section></>}
-    { modalToday && <>
+      </section></>
+      }
+      { modalToday && <>
+      <div className="todayMain">
         <section className="btns">
           <button className="btnSearch" onClick={show}>Search for places</button>
           <button className="btnGps"><span className="material-symbols-outlined gps">my_location</span></button>
@@ -196,20 +193,20 @@ function BlockSearch(props) {
         <div className="contImgC">
           <img src={imageI} alt={props.list[0].weather[0].description}></img>
         </div>
-      
+
         <p><span className="tempToday">{parseInt(props.list[0].main.temp_max)}</span><span className="tempTodayU">{props.uni}</span></p>
         <p className="descToday"> {props.list[0].weather[0].description}</p>
         <p> <span className="day">Today</span> <span className="day"> · </span> <span className="day">{numeroDia}{dia}{mes}</span> </p>
         <p className="locationActive">
-          <span class="material-symbols-outlined iconLoc">location_on</span><span className="iconLoc">{props.city.name} {props.city.country}</span></p>
+          <span className="material-symbols-outlined iconLoc">location_on</span><span className="iconLoc">{props.city.name} {props.city.country}</span></p>
+      </div>
       </> }
       </div>
-      
-      
-        <div className="contDetail">
+
+      <div className="contDetail">
         <section className="contUni">
-          <button className="uni btnC" >°C</button>
-          <button className="uni btnF" >°F</button>
+          <button className="uni btnC" onClick={changeUni}>{props.uni}</button>
+          
         </section>
 
         <section className="days">
@@ -249,15 +246,16 @@ function BlockSearch(props) {
           uni={props.uni}
         ></BlockDetail>
         </section>
+
         <section className="contenedorSecundary">
         <p className="titleSecAdi">Today's Hightlights</p>
         <section className="detailAdi">
           <article className="det">
             <p><span className="titleSec">Wind Status</span> </p>
             <p className="cValue"> <span className="value">{props.list[0].wind.speed}</span><span className="unit">mph</span></p>
-            <p className="barPor">
-              <p className="contWind"><span class="material-symbols-outlined wind">near_me</span><span>WSW</span></p>
-            </p>
+            <div className="barPor">
+              <p className="contWind"><span className="material-symbols-outlined wind">near_me</span><span>WSW</span></p>
+            </div>
           </article>
           <article className="det">
             <p><span className="titleSec">Humidity</span></p>
@@ -279,7 +277,8 @@ function BlockSearch(props) {
           </article>
         </section>
         </section>
-      <footer><p className="footer">created by Jose Gregorio Perez Montilla - Soluciones Integrales Perez</p></footer>
+
+      <footer><p className="footer">created by José Gregorio Pérez Montilla - Soluciones Integrales Perez</p></footer>
 
       </div>
     </div>
