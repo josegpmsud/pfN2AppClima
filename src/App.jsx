@@ -4,20 +4,89 @@ import BlockSearch from './components/blockSearch/BlockSearch';
 import { weatherApi } from './api/weatherApi';
 
 function App() {
+  const [ searchCity, setSearchCity ] = useState('');// imperial
+  const [weatherCity, setWeatherCity]=useState('caracas');
 
   const [weather, setWeather]=useState('');
+  
+  const [unit,setUnit]=useState("metric");// imperial
+  const [unitL,setUnitL]=useState("°C");// imperial
+
+
+  function changeUni(){
+    if(unitL=="°F"){
+      setUnit("metric")
+      setUnitL("°C")
+    }else{
+      setUnit("imperial")
+      setUnitL("°F")}
+  }
 
   useEffect(() => {
+
     fetchData()
     async function fetchData() {
-      console.log("aqui")
-      const res = await weatherApi.getData("8.1141033", "-72.0204348")
+      console.log("aqui",unit)
+      
+      const {data} = await weatherApi.getData2 (weatherCity, unit )//weatherCity
+      const {lat, lon} = data.coord
+
+      const res = await weatherApi.getData(lat, lon, unit)//"metric" //′N ′W // // "-66.8792", "10.488"//-80.60769943317263, -126.30011238605796 //"-49.30512014747726", "69.048243706593283"
       console.log(res);
       setWeather(res.data)
     }
-  }, []);
+  }, [unit, weatherCity]);
 
+  console.log("imprimiendo por ciudad")
+  console.log(weatherCity);
+  console.log("imprimiendo por lat y lon")
   console.log(weather);
+  
+  
+  return (
+    <div>     
+      
+            
+
+     {weather ? <BlockSearch
+        {...weather}
+        uni={unitL}
+
+        citySelc={weatherCity}
+
+        setSearchCity={ setSearchCity }
+        searchCity={searchCity}
+        setCity={ setWeatherCity }
+        changeUni={ changeUni }
+
+      ></BlockSearch>: ( <h1>cargando...</h1> ) }
+    </div>
+  )
+}
+
+export default App
+
+
+/*
+<button className="uni btnC" onClick={changeUni}>{unitL}</button>
+
+
+<input className="lat" placeholder="Latitud" type="text" onChange={(e)=>setLat(e.target.value)}/>
+      <input className="lon" placeholder="Longitud" type="text"onChange={(e)=>setLon(e.target.value)}/>
+
+
+<input className="lat" placeholder="Latitud" type="text" onChange={(e)=>setLat(e.target.value)}/>
+<input className="lon" placeholder="Longitud" type="text"onChange={(e)=>setLon(e.target.value)}/>
+<button className="input" onClick={update}>Actualizar</button>
+*/
+
+
+/* UNA MEJOR OPCION DE URL
+  https://api.openweathermap.org/data/2.5/forecast?q=caracas&cnt=6&appid=e920d87ad8a741b2e9c693a7d1e336a7
+  https://api.openweathermap.org/data/2.5/forecast?q=caracas&cnt=6&appid=e920d87ad8a741b2e9c693a7d1e336a7&units=metric
+  */
+
+
   /*
   const [weather, setWeather]=useState('');
   //const [lat, setLat] = useState(8.1141033);
@@ -42,114 +111,13 @@ function App() {
 
   const obtenerWeather = () => {
 
-  axios.get('https://api.openweathermap.org/data/2.5/forecast?lat=8.1141033&lon=-72.0204348&appid=e920d87ad8a741b2e9c693a7d1e336a7') //+key   'https://api.openweathermap.org/data/2.5/forecast?lat='+{latitud}+'&lon='+{longitud}+'&appid=e920d87ad8a741b2e9c693a7d1e336a7'
-  .then(function (response) {
-    // manejar respuesta exitosa
-    console.log(response.data);
-    setWeather(response.data);
-  })
-  .catch(function (error) {
-    // manejar error
-    console.log(error);
-  })
-  .finally(function () {
-    // siempre sera executado
-  });
+  
+*/
+
+/*
+  function update(){
+    setLat("imperial")
+    setLon("°F")
   }
-*/
-  return (
-    <>
-     {weather ? <BlockSearch
-        {...weather}
-      ></BlockSearch>: ( <h1>no hay nada</h1> ) }
-    </>
-  )
-}
 
-export default App
-
-/*
-
-<h1>App Weather</h1>
-      <input placeholder='Ingrese Location' onChange={(e)=>setWeather(e.target.value)}></input>
-      <button onClick={obtenerWeather}>Buscar</button>
-
-
-
-<div>
-      <h4>Ciudad: {weather.city.name}</h4>
-      <h4>Cordenadas: {weather.city.coord.lat} Latitud || {weather.city.coord.lon} longitud</h4>
-      <h4>Zona Horaria: {weather.city.timezone}</h4>
-
-      <h4>Wind</h4>
-      <h5> {weather.list[0].wind.deg} deg</h5>
-      <h5> {weather.list[0].wind.gust} gust</h5>
-      <h5> {weather.list[0].wind.speed} speed</h5>
-
-      <h4>Main</h4>
-      <h5> {weather.list[0].main.feels_like} feels_like</h5>
-      <h5> {weather.list[0].main.humidity} humidity</h5>
-      <h5> {weather.list[0].main.temp} temp</h5>
-      <h5> {weather.list[0].main.temp_kf} temp_kf</h5>
-      <h5> {weather.list[0].main.temp_max} temp_max</h5>
-      <h5> {weather.list[0].main.temp_min} temp_min</h5>
-
-      <h4>Weather</h4>
-      <h5> {weather.list[0].weather[0].description} description</h5>
-      <h5> {weather.list[0].weather[0].main} main</h5>
-      <h5> {weather.list[0].weather[0].icon} icon</h5>
-
-      </div>
-
-
-<BlockSearch
-      weather={weather}
-      ></BlockSearch>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <h4>Ciudad: {JSON.stringify(weather.city.name)}</h4>
-      <h4>Cordenadas: {JSON.stringify(weather.city.coord.lat)} Latitud - {JSON.stringify(weather.city.coord.lon)} longitud</h4>
-      <h4>Zona Horaria: {JSON.stringify(weather.city.timezone)}</h4>
-
-      <h4>Clima:</h4>
-      <h5>Viento: {JSON.stringify(weather.list[0].wind.deg)} deg</h5>
-      <h5>Viento: {JSON.stringify(weather.list[0].wind.gust)} gust</h5>
-      <h5>Viento: {JSON.stringify(weather.list[0].wind.speed)} speed</h5>
-
-
-*/
-
-
-
-
-
-/*
-<h1>{JSON.stringify(weather)}</h1>
-*/
-
-/*
-Historia de usuario: Puedo ver el clima de la ciudad como predeterminado, preferiblemente mi ubicación actual
-Historia de usuario: Puedo buscar ciudad
-Historia de usuario: Puedo ver el clima de hoy y los próximos 5 días
-Historia de usuario: Puedo ver la fecha y el lugar del clima
-Historia de usuario: Puedo ver según imagen para cada tipo de clima
-Historia de usuario: Puedo ver el grado mínimo y máximo cada día
-Historia de usuario: Puedo ver el estado y la dirección del viento
-Historia de usuario: Puedo ver el porcentaje de humedad
-Historia de usuario: Puedo ver un indicador de visibilidad
-Historia de usuario: Puedo ver el número de presión de aire
-Historia de usuario (opcional): Puedo solicitar mi ubicación actual meteorológica
-Historia de usuario (opcional): Puedo convertir la temperatura en Celcius a Fahrenheit y viceversa
 */
